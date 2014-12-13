@@ -1,4 +1,15 @@
-module SchemeParser (parseExpr, LispVal (Atom, Number, String, List, DottedList)) where
+module SchemeParser
+       (
+         parseExpr,
+         LispVal (
+           Atom,
+           Number,
+           Bool,
+           String,
+           List,
+           DottedList)
+       )
+       where
 
 import Text.ParserCombinators.Parsec hiding (spaces)
 import Control.Monad

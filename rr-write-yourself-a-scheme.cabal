@@ -11,18 +11,18 @@ executable rr-write-yourself-a-scheme
  build-depends: base,
                 parsec
 
-library
- exposed-modules: Main
- build-depends: base,
-                parsec
+-- library
+--  exposed-modules: Main
+--  build-depends: base,
+--                 parsec
 
-test-suite test-scheme
- type: detailed-0.9
- test-module: MainTest
- hs-source-dirs: test
- build-depends: base,
-                test-framework,
-                test-framework-hunit,
-                HUnit,
-                containers,
-                rr-write-yourself-a-scheme
+-- test-suite test-scheme
+--  type: detailed-0.9
+--  test-module: MainTest
+--  hs-source-dirs: test
+--  build-depends: base,
+--                 test-framework,
+--                 test-framework-hunit,
+--                 HUnit,
+--                 containers,
+--                 rr-write-yourself-a-scheme
