@@ -1,10 +1,8 @@
-module Main where
+module Main (main, readExpr, LispVal(Number)) where
+
 import System.Environment
 import Text.ParserCombinators.Parsec hiding (spaces)
 import Control.Monad
-
--- exercises
--- 1x,2x,3x,4o,5x,6,7
 
 main :: IO ()
 main = getArgs >>= \x -> putStrLn . show . eval . readExpr . (!!0) $ x
@@ -16,13 +14,13 @@ data LispVal = Atom String
              | DottedList [LispVal] LispVal
              | Number Integer
              | String String
-             | Bool Bool
+             | Bool Bool deriving (Eq)
 
 -- reader
 readExpr :: String -> LispVal
 readExpr = \input -> case parse parseExpr "lisp" input of
                       Left err -> String $ "No match: " ++ show err
-                      Right val -> String $ show val
+                      Right val -> String $ show (eval val)
 
 -- parser
 parseExpr :: Parser LispVal
