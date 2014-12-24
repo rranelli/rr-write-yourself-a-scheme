@@ -3,7 +3,6 @@ module SchemeEvaluator (eval) where
 import SchemeValue
 import SchemeError
 import SchemePrimitives
-import SchemeParser
 
 import Control.Monad.Error
 
