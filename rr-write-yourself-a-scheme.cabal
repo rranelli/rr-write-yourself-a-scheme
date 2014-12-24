@@ -9,7 +9,8 @@ cabal-version: >=1.8
 executable rr-write-yourself-a-scheme
  main-is: Main.hs
  build-depends: base,
-                parsec
+                parsec,
+                mtl
 
 -- library
 --  exposed-modules: Main

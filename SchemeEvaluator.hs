@@ -1,18 +1,22 @@
 module SchemeEvaluator (eval) where
 
+import SchemeValue
+import SchemeError
 import SchemeParser
 
-eval :: LispVal -> LispVal
-eval val @ (String _) = val
-eval val @ (Number _) = val
-eval val @ (Bool _) = val
-eval (List [Atom "quote", val]) = val
-eval (List (func : args)) = apply func $ map eval args
+import Control.Monad.Error
 
-apply :: LispVal -> [LispVal] -> LispVal
-apply (Atom func) args = maybe (Bool False) ($ args) $ lookup func primitives
+eval :: LispVal -> ThrowsError LispVal
+eval val @ (String _) = return val
+eval val @ (Number _) = return val
+eval val @ (Bool _) = return val
+eval (List [Atom "quote", val]) = return val
+eval (List (func : args)) = mapM eval args >>= apply func
 
-primitives :: [(String, [LispVal] -> LispVal)]
+apply :: LispVal -> [LispVal] -> ThrowsError LispVal
+apply (Atom func) args = maybe (throwError $ NotFunction "Unrecognized primitive function args" func) ($ args) (lookup func primitives)
+
+primitives :: [(String, [LispVal] -> ThrowsError LispVal)]
 primitives = [("+", numericBinop (+)),
               ("-", numericBinop (-)),
               ("*", numericBinop (*)),
@@ -21,14 +25,15 @@ primitives = [("+", numericBinop (+)),
               ("quotient", numericBinop quot),
               ("remainder", numericBinop rem)]
 
-numericBinop :: (Integer -> Integer -> Integer) -> [LispVal] -> LispVal
-numericBinop op params = Number $ foldl1 op $ map unpackNum params
+numericBinop :: (Integer -> Integer -> Integer) -> [LispVal] -> ThrowsError LispVal
+numericBinop _ singleVal@ [_] = throwError $ NumArgs 2 singleVal
+numericBinop op params = mapM unpackNum params >>= return . Number . foldl1 op
 
-unpackNum :: LispVal -> Integer
-unpackNum (Number n) = n
+unpackNum :: LispVal -> ThrowsError Integer
+unpackNum (Number n) = return n
 unpackNum (String n) = let parsed = reads n in
                          if null parsed
-                         then 0
-                         else fst $ parsed !! 0
+                         then throwError $ TypeMismatch "number" $ String n
+                         else return $ fst $ parsed !! 0
 unpackNum (List [n]) = unpackNum n
-unpackNum _ = 0
+unpackNum notNum = throwError $ TypeMismatch "number" notNum

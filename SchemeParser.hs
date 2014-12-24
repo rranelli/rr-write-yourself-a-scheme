@@ -1,25 +1,10 @@
-module SchemeParser
-       (
-         parseExpr,
-         LispVal (
-           Atom,
-           Number,
-           Bool,
-           String,
-           List,
-           DottedList)
-       )
-       where
+module SchemeParser (parseExpr) where
 
 import Text.ParserCombinators.Parsec hiding (spaces)
 import Control.Monad
+import Control.Monad.Error
 
-data LispVal = Atom String
-             | List [LispVal]
-             | DottedList [LispVal] LispVal
-             | Number Integer
-             | String String
-             | Bool Bool deriving (Eq)
+import SchemeValue
 
 parseExpr :: Parser LispVal
 parseExpr = parseAtom
