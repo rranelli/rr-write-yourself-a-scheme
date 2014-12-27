@@ -1,0 +1,10 @@
+* Milhouse's Scheme interpreter.
+
+This repository contains my modified study version of the scheme interpreter
+described in the wikibook [[http://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours]['Write yourself a scheme in 48 - An introduction to
+Haskell through example'.]]
+
+My expectation here is to understand a bit more of Haskell and it's ecosystem
+while contemplating the simple, beautiful and powerful Lisp.
+
+Probably should post about this on my blog someday.
