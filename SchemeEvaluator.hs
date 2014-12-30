@@ -4,7 +4,7 @@ import SchemeValue
 import SchemeError
 import SchemePrimitives
 
-import Control.Monad.Error
+import Control.Monad.Except
 
 eval :: LispVal -> ThrowsError LispVal
 eval val @ (String _) = return val

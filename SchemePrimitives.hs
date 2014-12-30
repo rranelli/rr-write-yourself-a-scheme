@@ -4,7 +4,7 @@ module SchemePrimitives(primitives) where
 import SchemeValue
 import SchemeError
 
-import Control.Monad.Error
+import Control.Monad.Except
 
 primitives :: [(String, [LispVal] -> ThrowsError LispVal)]
 primitives = [("+", numericBinop (+)),

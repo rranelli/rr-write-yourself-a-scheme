@@ -10,8 +10,6 @@ module SchemeError (
   ) where
 
 import Text.ParserCombinators.Parsec hiding (spaces)
-
-import Control.Monad
 import Control.Monad.Error
 
 import SchemeValue
