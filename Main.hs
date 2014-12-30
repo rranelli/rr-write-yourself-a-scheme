@@ -21,7 +21,7 @@ evalString = \expr -> return . extractValue . trapError $ (liftM show $ readExpr
 evalAndPrint :: String -> IO ()
 evalAndPrint = \expr -> evalString expr >>= putStrLn
 
-until_ :: Monad m => (a -> Bool) -> m a -> (a -> m ()) -> m ()
+until_ :: (String -> Bool) -> IO String -> (String -> IO ()) -> IO ()
 until_ haltp prompt action = do result <- prompt
                                 if haltp result
                                 then return ()
