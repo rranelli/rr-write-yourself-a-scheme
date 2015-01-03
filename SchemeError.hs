@@ -4,7 +4,9 @@ module SchemeError (
     NotFunction,
     NumArgs,
     TypeMismatch,
-    Parser),
+    Parser,
+    BadSpecialForm,
+    UnboundVar),
   extractValue,
   trapError
   ) where
@@ -37,6 +39,7 @@ instance Error LispError where
 
 type ThrowsError = Either LispError
 
+trapError :: (Show e, MonadError e m) => m String -> m String
 trapError action = catchError action (return . show)
 
 extractValue :: ThrowsError a -> a
