@@ -4,7 +4,7 @@ module SchemeRepl (runRepl, runOne, evalAndPrint) where
 import System.IO
 import Control.Monad.Error
 
-import SchemeError
+import SchemeValue
 import SchemeReader
 import SchemeEvaluator
 

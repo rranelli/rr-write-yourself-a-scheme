@@ -2,7 +2,6 @@
 module SchemePrimitives(primitives) where
 
 import SchemeValue
-import SchemeError
 
 import Control.Monad.Error
 
@@ -31,8 +30,7 @@ primitives = [("+", numericBinop (+)),
               ("cons", cons),
               ("eq?", eqv),
               ("eqv?", eqv),
-              ("equal?", equal)
-             ]
+              ("equal?", equal)]
 
 numericBinop :: (Integer -> Integer -> Integer) -> [LispVal] -> ThrowsError LispVal
 numericBinop _ singleVal@ [_] = throwError $ NumArgs 2 singleVal

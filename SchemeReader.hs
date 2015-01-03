@@ -5,7 +5,6 @@ import Control.Monad.Error
 
 import SchemeParser
 import SchemeValue
-import SchemeError
 
 readExpr :: String -> ThrowsError LispVal
 readExpr = \input -> case parse parseExpr "lisp" input of
