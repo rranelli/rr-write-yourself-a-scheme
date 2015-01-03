@@ -1,7 +1,7 @@
 module SchemeReader (readExpr) where
 
 import Text.ParserCombinators.Parsec hiding (spaces)
-import Control.Monad.Except
+import Control.Monad.Error
 
 import SchemeParser
 import SchemeValue

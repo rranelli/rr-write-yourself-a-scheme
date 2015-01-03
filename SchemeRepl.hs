@@ -2,7 +2,7 @@
 module SchemeRepl (runRepl, evalAndPrint) where
 
 import System.IO
-import Control.Monad.Except
+import Control.Monad.Error
 
 import SchemeError
 import SchemeReader
